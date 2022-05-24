@@ -2,14 +2,29 @@ import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
+import Navbar from './Pages/Shared/Navbar/Navbar';
+import Login from './Pages/Login/Login';
+import Signup from './Pages/Login/Signup';
+import RequireAuth from './Pages/Login/RequireAuth';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import MyProfile from './Pages/Dashboard/MyProfile';
+import AddProduct from './Pages/Dashboard/AddProduct';
 
 function App() {
   return (
-    <div className="App">
-       <Routes>
+    <div >
+      <Navbar></Navbar>
+      <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="about" element={<About />} /> */}
+        <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
+          <Route index element={<MyProfile></MyProfile>} />
+          <Route path="addproduct" element={<AddProduct />} />
+          {/* <Route path="addDoctor" element={<RequireAdmin><AddDoctor /></RequireAdmin>} /> */}
+        </Route>
+        <Route path="/login" element={<Login></Login>}> </Route>
+        <Route path="/signup" element={<Signup></Signup>}> </Route>
       </Routes>
+
     </div>
   );
 }
