@@ -31,6 +31,12 @@ const Login = () => {
     //     }
     // }, [token, from, navigate])
 
+    useEffect(() => {
+        if (user) {
+            navigate(from, { replace: true });
+        }
+    }, [user, from, navigate])
+
     if (loading || gLoading) {
         return <Loading></Loading>
     }

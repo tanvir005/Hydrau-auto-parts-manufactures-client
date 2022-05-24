@@ -9,22 +9,26 @@ import RequireAuth from './Pages/Login/RequireAuth';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import MyProfile from './Pages/Dashboard/MyProfile';
 import AddProduct from './Pages/Dashboard/AddProduct';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Purchase from './Pages/Purchase/Purchase';
 
 function App() {
   return (
-    <div >
+    <div>
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/purchase" element={<RequireAuth><Purchase></Purchase></RequireAuth>}></Route>
         <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-          <Route index element={<MyProfile></MyProfile>} />
-          <Route path="addproduct" element={<AddProduct />} />
-          {/* <Route path="addDoctor" element={<RequireAdmin><AddDoctor /></RequireAdmin>} /> */}
+        <Route index element={<MyProfile></MyProfile>} />
+        <Route path="addproduct" element={<AddProduct />} />
+      {/* <Route path="addDoctor" element={<RequireAdmin><AddDoctor /></RequireAdmin>} /> */}
         </Route>
         <Route path="/login" element={<Login></Login>}> </Route>
         <Route path="/signup" element={<Signup></Signup>}> </Route>
       </Routes>
-
+      <ToastContainer />
     </div>
   );
 }

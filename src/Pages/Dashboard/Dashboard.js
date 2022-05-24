@@ -20,8 +20,8 @@ const Dashboard = () => {
                 <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 overflow-y-auto lg:w-80 w-60 bg-base-100 text-base-content">
                     {/* <!-- Sidebar content here --> */}
-                    <li><Link className="font-bold uppercase text-primary" to="/dashboard">My Appointment</Link></li>
-                    <li><Link className="font-bold uppercase text-primary" to="/dashboard/review">My Reviews</Link></li>
+                    <li><Link className="font-bold uppercase text-primary" to="/dashboard">My Orders</Link></li>
+                    <li><Link className="font-bold uppercase text-primary" to="/dashboard/review">Add Review</Link></li>
                     <li><Link className="font-bold uppercase text-primary" to="/dashboard/doctors">Doctors</Link></li>
                     {user && <>
                         <li><Link className="font-bold uppercase text-primary" to="/dashboard/allusers">All Users</Link></li>

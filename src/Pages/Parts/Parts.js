@@ -10,7 +10,7 @@ const Parts = () => {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
-    console.log(parts);
+   
     if (isLoading) {
         return <Loading></Loading>
     }

@@ -1,13 +1,13 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const MyProfile = () => {
-    toast('Hellow there!')
-    alert("he kutta")
+   toast('Hellow there qffo ofisdo')
+   
     return (
         <div>
             my profile
-            
+           
         </div>
     );
 };
