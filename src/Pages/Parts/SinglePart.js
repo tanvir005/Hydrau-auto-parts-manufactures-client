@@ -6,10 +6,10 @@ import Loading from '../Shared/Loading';
 const SinglePart = ({part}) => {
 
     const navigate = useNavigate();
-   const {img, name, description, availableQuantity, minOrderQuantity, unitPrice} = part;
+   const {img, name, description, availableQuantity, minOrderQuantity, unitPrice, _id} = part;
 
-    const handleBuy=()=>{
-        navigate('/purchase');
+    const handleBuy= id =>{
+        navigate(`/purchase/${id}`);
     }
     return (
         <div className="card w-96 shadow-xl">
@@ -25,7 +25,7 @@ const SinglePart = ({part}) => {
                 <h2 className="text-xl font-bold">Unit Price: { unitPrice}</h2>
 
                 <div className="card-actions">
-                    <button onClick={handleBuy} className="btn btn-primary">Buy Now</button>
+                    <button onClick={()=>handleBuy(_id)} className="btn btn-primary">Buy Now</button>
                 </div>
             </div>
         </div>
