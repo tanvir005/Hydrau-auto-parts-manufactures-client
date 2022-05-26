@@ -10,7 +10,7 @@ import Loading from '../Shared/Loading';
 const Purchase = () => {
     const [outStock, setOutStock] = useState(false);
     const [reqQuantity, setReqQuantity] = useState(0);
-    const [totalPrice, setTOtalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
 
     const [user] = useAuthState(auth);
@@ -57,9 +57,10 @@ const Purchase = () => {
         const reqQuantity = data.quantity;
         setReqQuantity(reqQuantity);
         const totalPrice = reqQuantity * part.unitPrice;
-        setTOtalPrice(totalPrice);
-
-        setData(data);
+        setTotalPrice(totalPrice);
+        let unitPrice = part.unitPrice;
+        let Ndata = {...data, totalPrice, unitPrice}
+        setData(Ndata);
        
 
 
@@ -83,9 +84,12 @@ const Purchase = () => {
 
 
                 
-                  const  status= 'panding';
-                 let newData={...datac,status}
-                  console.log( newData);
+                const  status= 'Panding';
+                const partsName = part.name;
+                const img = part.img;
+                let newData={...datac, status, partsName, img}
+                  
+                
                 
                 fetch('http://localhost:5000/orders', {
                     method: 'POST',

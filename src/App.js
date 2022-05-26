@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Purchase from './Pages/Purchase/Purchase';
 import MyOrders from './Pages/Dashboard/MyOrders';
 import FourOFour from './Pages/Shared/FourOFour';
+import AllOrders from './Pages/Dashboard/AllOrders';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route index element={<MyProfile></MyProfile>} />
         <Route path="addproduct" element={<AddProduct />} />
         <Route path="myorders" element={<MyOrders />} />
+        <Route path="manageorders" element={<AllOrders />} />
         </Route>
         <Route path="/login" element={<Login></Login>}> </Route>
         <Route path="/signup" element={<Signup></Signup>}> </Route>

@@ -1,14 +1,9 @@
 import React from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
-import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
-const MyOrders = () => {
-    const [user] = useAuthState(auth);
-
-    const email = user.email;
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders/${email}`, {
+const AllOrders = () => {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -19,7 +14,6 @@ const MyOrders = () => {
         return <Loading></Loading>;
     }
     return (
-
         <section className="mt-28">
             <h4 className="text-secondary font-bold text-3xl">Hello { }, Your orders</h4>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg border-2">
@@ -30,7 +24,13 @@ const MyOrders = () => {
 
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Product name
+                                Client Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Contact No
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Product Name
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Unt Price
@@ -54,11 +54,20 @@ const MyOrders = () => {
                         {
                             orders.map(order => <tr class="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                    <img className="w-10" src={order.img} alt="product image" />
+                                    <img className="w-10" src={order.img} alt="prod_img" />
                                 </th>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                               
+                                <th scope="row" class="px-2 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                    {order.name}
+                                </th>
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white ">
+                                    {order.phoneNumber}
+                                </th>
+                                <th scope="row" class="px-2 py-4 font-medium text-gray-900 dark:text-white">
                                     {order.partsName}
                                 </th>
+                               
+                                
                                 <td class="px-6 py-4">
                                     {order.unitPrice}
                                 </td>
@@ -69,7 +78,7 @@ const MyOrders = () => {
                                     {order.totalPrice}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {order.status}
+                                    <button clsssName="btn btn-warning">{order.status} </button>
                                 </td>
                                 <td class="px-6 py-4">
                                     X
@@ -80,8 +89,7 @@ const MyOrders = () => {
                 </table>
             </div>
         </section>
-
     );
 };
 
-export default MyOrders;
+export default AllOrders;
