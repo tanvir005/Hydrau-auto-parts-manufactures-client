@@ -80,6 +80,31 @@ const Purchase = () => {
                       navigate('/dashboard/myorders')
                    }
                 })
+
+
+                
+                  const  status= 'panding';
+                 let newData={...datac,status}
+                  console.log( newData);
+                
+                fetch('http://localhost:5000/orders', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        // authorization: `Barer ${localStorage.getItem('accessToken')}`,
+                    },
+
+                    body: JSON.stringify(newData)
+                })
+                    .then(res => res.json())
+                    .then(insert => {                     
+                        if (insert.result?.insertedId) {
+                            toast.success(" Please pay to confirm");
+                        }
+                        else {
+                            toast.error(`Try again.`);
+                        }
+                    })
             
          
 

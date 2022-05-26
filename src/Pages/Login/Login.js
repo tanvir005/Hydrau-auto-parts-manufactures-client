@@ -30,7 +30,7 @@ const Login = () => {
         if (token) {
             navigate(from, { replace: true });
         }
-    }, [token, from, navigate])
+    }, [token, from, navigate]);
 
   
 

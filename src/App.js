@@ -26,7 +26,6 @@ function App() {
         <Route index element={<MyProfile></MyProfile>} />
         <Route path="addproduct" element={<AddProduct />} />
         <Route path="myorders" element={<MyOrders />} />
-      {/* <Route path="addDoctor" element={<RequireAdmin><AddDoctor /></RequireAdmin>} /> */}
         </Route>
         <Route path="/login" element={<Login></Login>}> </Route>
         <Route path="/signup" element={<Signup></Signup>}> </Route>
