@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Purchase from './Pages/Purchase/Purchase';
 import MyOrders from './Pages/Dashboard/MyOrders';
 import FourOFour from './Pages/Shared/FourOFour';
-import AllOrders from './Pages/Dashboard/AllOrders';
+import AllOrders from './Pages/Dashboard/ManageOrders/AllOrders';
 
 function App() {
   return (
