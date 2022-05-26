@@ -57,7 +57,7 @@ const AllOrders = () => {
                                 Status
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                Delete
+                                Manage
                             </th>
 
                         </tr>
@@ -67,6 +67,7 @@ const AllOrders = () => {
                             orders.map(order => <SingleOrder
                                 key={order._id}
                                 order={order}
+                                refetch={refetch}
                             >
                             </SingleOrder>
                             )

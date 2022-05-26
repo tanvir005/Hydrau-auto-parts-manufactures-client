@@ -27,7 +27,6 @@ const Purchase = () => {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
-
     const {
         register,
         formState: { errors },
@@ -47,11 +46,7 @@ const Purchase = () => {
         return <Loading></Loading>
     }
 
-
-
     refetch();
-
-
 
     const onSubmit = data => {
         const reqQuantity = data.quantity;
@@ -61,8 +56,6 @@ const Purchase = () => {
         let unitPrice = part.unitPrice;
         let Ndata = {...data, totalPrice, unitPrice}
         setData(Ndata);
-       
-
 
     }
     const finalSubmit = event => {
@@ -82,14 +75,10 @@ const Purchase = () => {
                    }
                 })
 
-
-                
                 const  status= 'Panding';
                 const partsName = part.name;
                 const img = part.img;
-                let newData={...datac, status, partsName, img}
-                  
-                
+                let newData={...datac, status, partsName, img}                
                 
                 fetch('http://localhost:5000/orders', {
                     method: 'POST',
@@ -109,10 +98,6 @@ const Purchase = () => {
                             toast.error(`Try again.`);
                         }
                     })
-            
-         
-
-       
 
     }
     const handleClick = () =>{

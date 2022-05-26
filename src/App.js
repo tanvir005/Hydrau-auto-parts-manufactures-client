@@ -15,6 +15,7 @@ import Purchase from './Pages/Purchase/Purchase';
 import MyOrders from './Pages/Dashboard/MyOrders';
 import FourOFour from './Pages/Shared/FourOFour';
 import AllOrders from './Pages/Dashboard/ManageOrders/AllOrders';
+import ManageParts from './Pages/Dashboard/ManageOrders/ManageParts';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="addproduct" element={<AddProduct />} />
         <Route path="myorders" element={<MyOrders />} />
         <Route path="manageorders" element={<AllOrders />} />
+        <Route path="manageparts/:id" element={<ManageParts />} />
         </Route>
         <Route path="/login" element={<Login></Login>}> </Route>
         <Route path="/signup" element={<Signup></Signup>}> </Route>
