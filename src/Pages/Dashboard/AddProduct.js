@@ -39,19 +39,13 @@ const AddProduct = () => {
                         body: JSON.stringify(parts)
                     })
                         .then(res => res.json())
-                        .then(insert => {
-                            toast.success({insert});
-                            console.log(insert
-                                );
+                        .then(insert => {                     
                             if (insert.result?.insertedId) {
                                 toast.success(`New parts added`);
                             }
                             else {
                                 toast.error(`Already exist the parts.`);
                             }
-                            // refetch();
-                            // setTreatment(null);
-
                         })
                 }
 
