@@ -29,7 +29,7 @@ const AddProduct = () => {
                     }
 
                    
-                    fetch('http://localhost:5000/parts', {
+                    fetch('https://radiant-reef-04035.herokuapp.com/parts', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

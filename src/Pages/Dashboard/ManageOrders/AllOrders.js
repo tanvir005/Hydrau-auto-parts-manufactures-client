@@ -7,7 +7,7 @@ const AllOrders = () => {
 
    
 
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://radiant-reef-04035.herokuapp.com/orders`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

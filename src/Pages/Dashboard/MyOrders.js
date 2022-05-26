@@ -8,7 +8,7 @@ const MyOrders = () => {
     const [user] = useAuthState(auth);
 
     const email = user.email;
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders/${email}`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://radiant-reef-04035.herokuapp.com/orders/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
