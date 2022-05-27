@@ -12,7 +12,7 @@ const SinglePart = ({part}) => {
         navigate(`/purchase/${id}`);
     }
     return (
-        <div className="card w-96 shadow-xl">
+        <div className="card lg:w-96  my-10 border-primary border-2 shadow-xl">
             <figure className="px-10 pt-10">
                 <img src={img} alt="Parts" className="rounded-xl" />
             </figure>
@@ -24,8 +24,8 @@ const SinglePart = ({part}) => {
                 <h2 className="text-xl font-bold">Minimum Order Quantity: { minOrderQuantity}</h2>
                 <h2 className="text-xl font-bold">Unit Price: { unitPrice}</h2>
 
-                <div className="card-actions">
-                    <button onClick={()=>handleBuy(_id)} className="btn btn-primary">Buy Now</button>
+                <div className="card-actions justify-end">
+                    <button onClick={()=>handleBuy(_id)} className="btn btn-primary text-white">Buy Now</button>
                 </div>
             </div>
         </div>

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
 const MyOrders = () => {
     const [user] = useAuthState(auth);
+    const [deletingParts, setDeletingParts] = useState(null);
 
     const email = user.email;
 
@@ -18,6 +20,33 @@ const MyOrders = () => {
 
     if (isLoading) {
         return <Loading></Loading>;
+    }
+
+
+
+
+    const handleDeleteModal = id => {
+        setDeletingParts(id);
+    }
+    
+    const handleDelete = () => {
+
+        const id = deletingParts;
+
+        fetch(`https://sheltered-beach-01598.herokuapp.com/order/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    toast.success(`The parts is deleted.`)
+                    setDeletingParts(null)
+                    refetch();
+                }
+            })
     }
     return (
 
@@ -74,13 +103,30 @@ const MyOrders = () => {
                                         <div className="px-2 py-2 bg-warning font-bold uppercase text-black cursor-pointer rounded-lg text-center text-xs hover:bg-yellow-500">{order.status}</div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        X
+                                    <label onClick={() => handleDeleteModal(order._id)} htmlFor="delete-confirm-modal" className='btn btn-xs btn-error'>Delete</label>
                                     </td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deletingParts &&
+                <div>
+                    <input type="checkbox" id="delete-confirm-modal" className="modal-toggle" />
+                    <div className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete!</h3>
+
+                            <div className="modal-action">
+                                <button onClick={() => handleDelete()} className="btn btn-xs btn-error">Delete</button>
+                                <label htmlFor="delete-confirm-modal" className="btn btn-xs">Cancel</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
         </section>
 
     );

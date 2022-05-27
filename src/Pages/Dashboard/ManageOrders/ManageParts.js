@@ -1,37 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading';
+import UpdatePartsModal from '../UpdatePartsModal';
 
 
 const ManageParts = () => {
     const [outStock, setOutStock] = useState(false);
-    // const [reqQuantity, setReqQuantity] = useState(0);
-    // const [totalPrice, setTotalPrice] = useState(0);
-
+    const [isModalOpen, setIsModalOpen] = useState(null);
+    const [updateModal, setUpdateModal] = useState(null);
 
     const [user] = useAuthState(auth);
-    const [datac, setData] = useState({});
 
 
-    const navigate = useNavigate();
-
-
-    const { id } = useParams();
-
-    <Loading></Loading>
-
-    const { data: part, isLoading, refetch } = useQuery('part', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://sheltered-beach-01598.herokuapp.com/parts', {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
-    console.log(part);
+
 
     const {
         register,
@@ -42,86 +33,144 @@ const ManageParts = () => {
 
     useEffect(() => {
         <Loading></Loading>
-        if (part?.availableQuantity <= 0) {
-            console.log(part.availableQuantity);
+        if (parts?.availableQuantity <= 0) {
+
             setOutStock(true);
         }
-    }, [part, part?.name])
+    }, [parts, parts?.name])
 
     if (isLoading) {
         return <Loading></Loading>
     }
 
-    // refetch();
+    refetch();
 
-    const onSubmit = data => {
-        // const reqQuantity = data.quantity;
-        // setReqQuantity(reqQuantity);
-        // const totalPrice = reqQuantity * part.unitPrice;
-        // setTotalPrice(totalPrice);
-        // let unitPrice = part.unitPrice;
-        // let Ndata = { ...data, totalPrice, unitPrice }
-        // setData(Ndata);
 
+
+    // const handleUpdateModal = id => {
+    //    setUpdateModal(id);
+
+    // }
+
+
+    const handleDeleteModal = id => {
+        setIsModalOpen(id);
     }
-    const finalSubmit = event => {
 
-        // fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(datac)
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         if (data?.modifiedCount) {
-        //             toast.success("Order placed successfully. Please pay to confirm");
-        //             navigate('/dashboard/myorders')
-        //         }
-        //     })
+    const handleDelete = () => {
 
-       
-    }
-    const handleClick = () => {
+        const id = isModalOpen;
 
+        fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount) {
+                    toast.success(`The parts is deleted.`)
+                    setIsModalOpen(null)
+                    refetch();
+                }
+            })
     }
 
     return (
-        <div>
-            <h2 className="text-primary  font-bold text-5xl my-2 uppercase">Manage the Parts</h2>
-            <div className="border-2 shadow-green-50 rounded-2xl p-5">
-                <div className="md:flex gap-10  mb-28">
-                    <div className="md:w-1/2 p-10 border-2 shadow-green-50 rounded-2xl order-1 mb-5">
-                        {/* <img className="mx-auto hover:rotate-2 w-1/2" src={part?.img} alt="" />
-                        <h3 className="text-2xl font-bold text-left ">{part?.name}</h3>
-                        <p className="text-black text-justify">{part?.description}</p>
-                        <p className="text-black text-justify font-bold text-lg my-5">Available: {part.availableQuantity}</p>
-                        <p className="text-black text-justify font-bold text-lg my-5">Minimum Order Quantity: {part.minOrderQuantity}</p>
-                        <p className="text-black text-justify font-bold text-lg my-5">Unit Price: {part.unitPrice}</p>
+        <section className="mt-28">
+            <h4 className="text-accent font-bold text-3xl my-8">Hello {user.displayName}, Your parts</h4>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg bpart-2">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">
 
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Product name
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Unt Price
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Minimun Order Quantity
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Available Quantity
+                            </th>
 
+                            <th scope="col" className="px-6 py-3">
+                                Update Quantity
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Delete
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            outStock ?
-                                <p disabled className="text-center bg-red-800 text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline" >
-                                    Out of Stock
-                                </p>
-                                :
+                            parts.map(part =>
+                                <tr key={part._id} className="bpart-b dark:bg-gray-800 dark:bpart-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        <img className="w-10" src={part.img} alt="product image" />
+                                    </th>
+                                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                        {part.name}
+                                    </th>
+                                    <td className="px-6 py-4">
+                                        {part.unitPrice}
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        {part.minOrderQuantity}
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        {part.availableQuantity}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <label onClick={() => setUpdateModal( part._id)} htmlFor="update-modal" className="btn btn-secondary btn-xs">Update</label>
 
-                                <p className="text-center  bg-accent text-white font-bold py-2 w-full rounded focus:outline-none focus:shadow-outline" >
-                                    Available
-                                </p>
-                        } */}
+                                    </td>
 
-                    </div>
-
-                </div>
-
+                                    <td className="px-6 py-4">
+                                        <label onClick={() => handleDeleteModal(part._id)} htmlFor="delete-confirm-modal" className='btn btn-xs btn-error'>Delete</label>
+                                    </td>
+                                </tr>)
+                        }
+                    </tbody>
+                </table>
             </div>
 
-        </div>
+            {
+                isModalOpen &&
+                <div>
+                    <input type="checkbox" id="delete-confirm-modal" className="modal-toggle" />
+                    <div className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete!</h3>
+
+                            <div className="modal-action">
+                                <button onClick={() => handleDelete()} className="btn btn-xs btn-error">Delete</button>
+                                <label htmlFor="delete-confirm-modal" className="btn btn-xs">Cancel</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            {
+                updateModal &&
+                <UpdatePartsModal
+                    updateModal={updateModal}
+                    setUpdateModal={setUpdateModal}
+                >
+                </UpdatePartsModal>
+            }
+
+        </section>
 
     );
 };
 
-export default ManageParts; 
+export default ManageParts;

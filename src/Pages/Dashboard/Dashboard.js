@@ -37,7 +37,8 @@ const Dashboard = () => {
                     {admin && <>
                         <li><Link className="font-bold uppercase text-primary" to="/dashboard/addproduct">Add New Parts</Link></li>
                         <li><Link className="font-bold uppercase text-primary" to="/dashboard/manageorders">Manage Orders</Link></li>
-                        <li><Link className="font-bold uppercase text-primary" to="/dashboard/allusers">All Users</Link></li>
+                        <li><Link className="font-bold uppercase text-primary" to="/dashboard/allusers">Make Admin</Link></li>
+                        <li><Link className="font-bold uppercase text-primary" to="/dashboard/manageparts">Manage Parts</Link></li>
 
                     </>}
                 </ul>

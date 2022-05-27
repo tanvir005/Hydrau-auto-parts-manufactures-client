@@ -1,9 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Loading from '../Shared/Loading';
 
 const AddProduct = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors },reset, handleSubmit } = useForm();
 
     const imgStorageKey = '90cfa9a291d9a91d93959e526e9f61f6';
     const onSubmit = async data => {
@@ -39,8 +40,10 @@ const AddProduct = () => {
                         body: JSON.stringify(parts)
                     })
                         .then(res => res.json())
-                        .then(insert => {                     
+                        .then(insert => {         
+                            <Loading></Loading>            
                             if (insert.result?.insertedId) {
+                                reset();
                                 toast.success(`New parts added`);
                             }
                             else {
@@ -51,6 +54,8 @@ const AddProduct = () => {
 
             })
     }
+
+
     return (
         <div className='flex justify-center items-center'>
             <div className="card w-96 bg-base-100 shadow-xl">

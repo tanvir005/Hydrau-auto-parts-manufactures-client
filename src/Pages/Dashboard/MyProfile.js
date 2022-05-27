@@ -82,7 +82,9 @@ const MyProfile = () => {
         })
         .then(res => res.json())
         .then(data => {
+            <Loading></Loading>
           if(data.modifiedCount > 0){
+
               toast.success('Update successfully.');
               setIsOpenMOdal(false);
               refetch();
@@ -111,7 +113,7 @@ const MyProfile = () => {
 
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Name </span>
-                        <span className="ml-10">{userFromDb.name} </span>
+                        <span className="ml-10">{userFromDb.name || user.displayName} </span>
                     </p>
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Email </span>
@@ -195,6 +197,8 @@ const MyProfile = () => {
                                     </label>
                                     <input
                                         type="text"
+                                        value={user.displayName}
+                                        disabled
                                         className="input input-bordered w-full max-w-xs"
                                         required
                                         name='name'
@@ -204,6 +208,7 @@ const MyProfile = () => {
                                         <span className="label-text">Email</span>
                                     </label>
                                     <input
+                                    disabled
                                         value={user.email}
                                         className="input input-bordered w-full max-w-xs"
                                         readOnly

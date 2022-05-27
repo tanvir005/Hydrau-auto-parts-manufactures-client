@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import Review from './Review';
 
 const ShowReviews = () => {
-    const { data: reviews, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/reviews`, {
+    const { data: reviews, isLoading, refetch } = useQuery('reviews', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/reviews`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -16,10 +16,17 @@ const ShowReviews = () => {
     }
 
 
+
     return (
-        <div>
-            <h2 className="text-center font-bold text-3xl uppercase my-20 mx-auto "> Our Happy Clients says </h2>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 p-5">
+        <div className="my-10">
+            <h4 className="text-primary text-xs font-bold uppercase text-center mb-2">Reviews</h4>
+            <div className="text-center font-mono">
+                <h1 className="lg:text-5xl font-bold uppercase ">Our Happy Clients says</h1>
+                <h1 className="lg:text-sm text-xs text-center font-bold uppercase italic text-accent lg:mx-32 my-5"> Reviews are key to the decision-making process,
+                 helping customers to get a better idea about the product, including material, size, and shape.  </h1>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center gap-10 mx-auto my-5">
                 {
                     reviews.map(review => <Review
                         key={review._id}

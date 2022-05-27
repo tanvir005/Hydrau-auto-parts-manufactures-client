@@ -196,15 +196,16 @@ const Purchase = () => {
                                     errors.quantity ? <button
                                         className="btn btn-primary text-white w-full font-bold py-4 px-4 p-2 rounded focus:outline-none focus:shadow-outline uppercase"
                                         onClick={finalSubmit}
-                                        disabled
-                                        value="purchase"
-                                    />
+                                        disabled>
+                                        purchase
+                                    
+                                    </button>
                                         :
                                         <button
                                             className="btn btn-primary text-white w-full font-bold py-4 px-4 p-2 rounded focus:outline-none focus:shadow-outline uppercase"
-                                            onClick={finalSubmit}
-                                            value="purchase"
-                                        />
+                                            onClick={finalSubmit}>
+                                            purchase
+                                        </button>
                                 }
 
                             </div>

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Loading from '../Shared/Loading';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../Hooks/useToken';
+import { toast } from 'react-toastify';
 
 
 const Signup = () => {
@@ -34,13 +35,40 @@ const Signup = () => {
     }
 
     if (token) {
-        navigate('/parts');
+       return navigate('/');
+    }
+    if (user) {
+        return  navigate('/');
     }
 
     const onSubmit = async data => {
+
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
+
+
+        const updatedUser ={
+            name :data.name
+        }
         
+        fetch(`https://sheltered-beach-01598.herokuapp.com/updateuser/${data.email}`,{
+            method: 'PUT',
+            headers:{
+                'content-type': 'application/json',
+                authorization: `Barer ${localStorage.getItem('accessToken')}`,
+            },
+            body:JSON.stringify(updatedUser)
+        })
+        .then(res => res.json())
+        .then(data => {
+            <Loading></Loading>
+          if(data.modifiedCount > 0){
+              toast.success('Signup successfully.');
+          }
+          else{
+              toast.error('User Uptodate.')
+          }
+        })
     }
     return (
         <div className='flex h-screen justify-center items-center'>
@@ -63,8 +91,8 @@ const Signup = () => {
                                         message: 'Name is Required'
                                     },
                                     pattern: {
-                                        value: /^[a-zA-Z]{2,40}(?: +[a-zA-Z]{2,40})+$/,
-                                        message: 'Name must be in two words'
+                                        value: /(\w.+\s).+/,
+                                        message: 'Name must at least two words'
                                     }
                                 })}
                             />

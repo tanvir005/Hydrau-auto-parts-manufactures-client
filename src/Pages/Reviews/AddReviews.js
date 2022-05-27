@@ -27,10 +27,11 @@ const AddReviews = () => {
     const onSubmit = async data => {
         const review = {
             name: data.name,
-            partsName: data.name,
+            partsName: data.partsName,
             email: user.email,
             rating: data.rating,
-            review: data.review
+            review: data.review,
+            img: user.photoURL
            
         }
         // send to your database 

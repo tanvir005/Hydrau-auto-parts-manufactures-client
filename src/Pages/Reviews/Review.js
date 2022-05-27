@@ -6,16 +6,16 @@ import auth from '../../firebase.init';
 
 const Review = ({ review, refetch }) => {
     const [user] = useAuthState(auth);
-    refetch();
     let rating = review.rating;
 
+    refetch();
     return (
-        <div className="card max-w-sm bg-base-100 shadow-xl mb-10">
+        <div className="card max-w-sm bg-base-100 shadow-xl mb-10 p-5">
             <div className="grid grid-cols-1">
-                <div className="flex align-items-center">
+                <div className="flex justify-items-center justify-evenly">
                     <div className="avatar">
-                        <div className=" rounded-full">
-                            <img src={user?.photoURL} />
+                        <div className="w-24 rounded-full">
+                            <img src={review?.img} />
                         </div>
                     </div>
                     <div className="text-2xl">{review.name}</div>

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Loading from '../Shared/Loading';
 
 const AllUsers = () => {
-    const [deletingDoctor, setDeletingDoctor] = useState(null);
+    const [deletingParts, setDeletingParts] = useState(null);
     const { data: users, isLoading, refetch } = useQuery('users', async () => await fetch('https://sheltered-beach-01598.herokuapp.com/user', {
         method: 'GET',
         headers: {
@@ -38,11 +38,12 @@ const AllUsers = () => {
     };
 
     const removeUser = email => {
-        handleDelete(email);
+        setDeletingParts(email);
     }
 
-    const handleDelete =(Remail)=>{
+    const handleDelete = () => {
 
+        const Remail = deletingParts;
         fetch(`https://sheltered-beach-01598.herokuapp.com/user/${Remail}`, {
             method: 'DELETE',
             headers: {
@@ -54,11 +55,11 @@ const AllUsers = () => {
                 console.log(data);
                 if (data.deletedCount) {
                     toast.success(`User is deleted.`)
-                    setDeletingDoctor(null);
+                    setDeletingParts(null);
                     refetch();
                 }
             })
-    
+
     }
     return (
         <div>
@@ -96,18 +97,18 @@ const AllUsers = () => {
                     </tbody>
                 </table>
             </div>
-
             <input type="checkbox" id="delete-confirm-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg text-red-500">Are you sure you want to delete!</h3>
-                    
+
                     <div className="modal-action">
-                    <button onClick={() => handleDelete()} className="btn btn-xs btn-error">Delete</button>
+                        <button onClick={() => handleDelete()} className="btn btn-xs btn-error">Delete</button>
                         <label htmlFor="delete-confirm-modal" className="btn btn-xs">Cancel</label>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };

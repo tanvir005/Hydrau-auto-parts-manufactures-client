@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../../Shared/Loading';
 import SingleOrder from './SingleOrder';
@@ -22,12 +22,10 @@ const AllOrders = () => {
         return <Loading></Loading>;
     }
 
-    
-
 
     return (
         <section className="mt-28">
-            <h4 className="text-accent font-bold text-3xl my-8 ">Hello { }, Your orders</h4>
+            <h4 className="text-accent font-bold text-3xl my-8 ">Manage orders</h4>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg border-2">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
