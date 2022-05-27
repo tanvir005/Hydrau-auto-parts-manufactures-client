@@ -55,7 +55,7 @@ const AddProduct = () => {
         <div className='flex justify-center items-center'>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
-                    <h2 className="text-center text-2xl font-bold">Add a New Product</h2>
+                    <h2 className="text-center text-2xl font-bold text-accent">Add a New Product</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div className="form-control w-full max-w-xs">

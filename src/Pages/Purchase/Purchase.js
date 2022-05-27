@@ -49,59 +49,65 @@ const Purchase = () => {
     refetch();
 
     const onSubmit = data => {
+        console.log(data.quantity);
         const reqQuantity = data.quantity;
         setReqQuantity(reqQuantity);
         const totalPrice = reqQuantity * part.unitPrice;
         setTotalPrice(totalPrice);
         let unitPrice = part.unitPrice;
-        let Ndata = {...data, totalPrice, unitPrice}
+        let Ndata = { ...data, totalPrice, unitPrice }
         setData(Ndata);
 
     }
     const finalSubmit = event => {
-           
-                fetch(`http://localhost:5000/parts/${id}`,{
-                    method: 'PUT',
-                    headers:{
-                        'content-type': 'application/json',
-                        authorization: `Barer ${localStorage.getItem('accessToken')}`,
-                    },
-                    body:JSON.stringify(datac)
-                })
+
+        if (reqQuantity) {
+            fetch(`http://localhost:5000/parts/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Barer ${localStorage.getItem('accessToken')}`,
+                },
+                body: JSON.stringify(datac)
+            })
                 .then(res => res.json())
                 .then(data => {
-                   if(data?.modifiedCount){
-                       toast.success("Order placed successfully. Please pay to confirm");
-                      navigate('/dashboard/myorders')
-                   }
+                    if (data?.modifiedCount) {
+                        toast.success("Order placed successfully. Please pay to confirm");
+                        navigate('/dashboard/myorders')
+                    }
                 })
 
-                const  status= 'Panding';
-                const partsName = part.name;
-                const img = part.img;
-                let newData={...datac, status, partsName, img}                
-                
-                fetch('http://localhost:5000/orders', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json',
-                         authorization: `Barer ${localStorage.getItem('accessToken')}`,
-                    },
+            const status = 'Panding';
+            const partsName = part.name;
+            const img = part.img;
+            let newData = { ...datac, status, partsName, img }
 
-                    body: JSON.stringify(newData)
+            fetch('http://localhost:5000/orders', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Barer ${localStorage.getItem('accessToken')}`,
+                },
+
+                body: JSON.stringify(newData)
+            })
+                .then(res => res.json())
+                .then(insert => {
+                    if (insert.result?.insertedId) {
+                        toast.success(" Please pay to confirm");
+                    }
+                    else {
+                        toast.error(`Try again.`);
+                    }
                 })
-                    .then(res => res.json())
-                    .then(insert => {                     
-                        if (insert.result?.insertedId) {
-                            toast.success(" Please pay to confirm");
-                        }
-                        else {
-                            toast.error(`Try again.`);
-                        }
-                    })
+        }
+        else{
+            toast.error('Please provide valid data.')
+        }
 
     }
-    const handleClick = () =>{
+    const handleClick = () => {
 
     }
 
@@ -142,7 +148,7 @@ const Purchase = () => {
                             <p className=' text-error p-2 font-bold text-center'> Minimum Order Quantity: {part.minOrderQuantity}  </p>
                             <p className='mb-2 text-error p-2 font-bold text-center'> Unit Price: {part.unitPrice}  </p>
 
-        
+
 
                             <input onClick={handleClick} className='mb-4 border-2  shadow-green-50 p-2' placeholder={`Minimum Order quantity ${part.minOrderQuantity}`} type="number"
                                 {...register("quantity",
@@ -187,14 +193,14 @@ const Purchase = () => {
                                     <p className="font-bold text-right">Total Price: {totalPrice} </p>
                                 </div>
                                 {
-                                    errors.quantity ? <input
+                                    errors.quantity ? <button
                                         className="btn btn-primary text-white w-full font-bold py-4 px-4 p-2 rounded focus:outline-none focus:shadow-outline uppercase"
                                         onClick={finalSubmit}
                                         disabled
                                         value="purchase"
                                     />
                                         :
-                                        <input
+                                        <button
                                             className="btn btn-primary text-white w-full font-bold py-4 px-4 p-2 rounded focus:outline-none focus:shadow-outline uppercase"
                                             onClick={finalSubmit}
                                             value="purchase"

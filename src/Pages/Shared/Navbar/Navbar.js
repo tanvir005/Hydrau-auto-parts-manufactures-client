@@ -1,18 +1,21 @@
 import { signOut } from '@firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import logo from '../../../images/main-logo.png';
 
 const Navbar = () => {
 
+    const navigate = useNavigate();
 
     const [user] = useAuthState(auth);
 
     const logout = () => {
         signOut(auth);
         localStorage.removeItem('accessToken');
+        navigate('/');
+
     };
     const profile = () => {
       
@@ -20,7 +23,7 @@ const Navbar = () => {
 
     const menuItems = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/review">Reviews</Link></li>
+        <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/blog">Blog</Link></li>
         {
@@ -50,13 +53,6 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal p-0">
                     {menuItems}
                 </ul>
-            </div>
-
-
-            <div className="navbar-end">
-                <label htmlFor="dashboard-sidebar" tabIndex="1" className="btn btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                </label>
             </div>
         </div>
     );

@@ -4,20 +4,26 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
 
 
-const Reviews = () => {
+const AddReviews = () => {
     const [user] = useAuthState(auth);
     const { register, formState: { errors }, reset, handleSubmit } = useForm();
     const email = user.email;
     
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders/${email}`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', async () => await fetch(`http://localhost:5000/orders/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
 
+    if(isLoading){
+        return <Loading></Loading>;
+    }
+
+    
     const onSubmit = async data => {
         const review = {
             name: data.name,
@@ -79,7 +85,7 @@ const Reviews = () => {
                     <label className="label">
                         <span className="label-text">Parts Name</span>
                     </label>
-                    <select {...register('partsName')} class="input input-bordered w-full max-w-xs">
+                    <select {...register('partsName')} className="input input-bordered w-full max-w-xs">
                         {
                             orders.map(order => <option
                                 key={order._id}
@@ -143,4 +149,4 @@ const Reviews = () => {
     );
 };
 
-export default Reviews;
+export default AddReviews;
