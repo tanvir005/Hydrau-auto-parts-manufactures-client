@@ -21,7 +21,7 @@ const Purchase = () => {
 
 
     const { id } = useParams();
-    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://radiant-reef-04035.herokuapp.com/parts/${id}`, {
+    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`http://localhost:5000/parts/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -60,10 +60,11 @@ const Purchase = () => {
     }
     const finalSubmit = event => {
            
-                fetch(`https://radiant-reef-04035.herokuapp.com/parts/${id}`,{
+                fetch(`http://localhost:5000/parts/${id}`,{
                     method: 'PUT',
                     headers:{
-                        'content-type': 'application/json'
+                        'content-type': 'application/json',
+                        authorization: `Barer ${localStorage.getItem('accessToken')}`,
                     },
                     body:JSON.stringify(datac)
                 })
@@ -80,11 +81,11 @@ const Purchase = () => {
                 const img = part.img;
                 let newData={...datac, status, partsName, img}                
                 
-                fetch('https://radiant-reef-04035.herokuapp.com/orders', {
+                fetch('http://localhost:5000/orders', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
-                        // authorization: `Barer ${localStorage.getItem('accessToken')}`,
+                         authorization: `Barer ${localStorage.getItem('accessToken')}`,
                     },
 
                     body: JSON.stringify(newData)

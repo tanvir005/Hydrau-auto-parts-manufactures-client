@@ -4,11 +4,14 @@ import { Outlet } from 'react-router';
 import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import useAdmin from '../Hooks/useAdmin';
+import Loading from '../Shared/Loading';
 
 const Dashboard = () => {
     const [user] = useAuthState(auth);
-    const [admin] = useAdmin(user);
-   
+    const [admin, adminLoading] = useAdmin(user);
+   if(adminLoading){
+     return  <Loading></Loading>;
+   }
     return (
         <div className="drawer drawer-mobile">
             <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />

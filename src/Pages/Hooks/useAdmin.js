@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const useAdmin = user =>{
     
     const [admin, setAdmin] = useState(false);
     const [adminLoading, setAdminLoading] = useState(true);
+    const navigate = useNavigate();
     useEffect(()=>{
         const email = user?.email;
        
         if(email){
-            fetch(`https://radiant-reef-04035.herokuapp.com/admin/${email}`,{
+            fetch(`http://localhost:5000/admin/${email}`,{
                method: 'GET',
                headers:{
                    'content-type': 'application/json',
-                   authorization:`Barear ${localStorage.getItem('accessToken')}`
+                    authorization:`Barear ${localStorage.getItem('accessToken')}`
                }
            })
-           .then(res => res.json())
+           .then(res => {
+            if(res.status === 403){
+                toast.error(`You are not permited to access this page`);
+                navigate('/dashboard');
+            }
+            return res.json()})
            .then(data => {
                setAdmin(data);
                setAdminLoading(false);

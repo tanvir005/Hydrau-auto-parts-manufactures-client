@@ -7,7 +7,7 @@ const AllOrders = () => {
 
    
 
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://radiant-reef-04035.herokuapp.com/orders`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -64,7 +64,7 @@ const AllOrders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.map(order => <SingleOrder
+                            orders?.map(order => <SingleOrder
                                 key={order._id}
                                 order={order}
                                 refetch={refetch}

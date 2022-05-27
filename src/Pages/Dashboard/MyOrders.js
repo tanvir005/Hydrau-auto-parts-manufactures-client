@@ -8,7 +8,8 @@ const MyOrders = () => {
     const [user] = useAuthState(auth);
 
     const email = user.email;
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://radiant-reef-04035.herokuapp.com/orders/${email}`, {
+    
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`http://localhost:5000/orders/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -21,7 +22,7 @@ const MyOrders = () => {
     return (
 
         <section className="mt-28">
-            <h4 className="text-secondary font-bold text-3xl">Hello { }, Your orders</h4>
+            <h4 className="text-secondary font-bold text-3xl">Hello {user.displayName}, Your orders</h4>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg border-2">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -53,7 +54,7 @@ const MyOrders = () => {
                     <tbody>
                         {
                             orders.map(order =>
-                                <tr className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                                <tr key={order._id} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                         <img className="w-10" src={order.img} alt="product image" />
                                     </th>

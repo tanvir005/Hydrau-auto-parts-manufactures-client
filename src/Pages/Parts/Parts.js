@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import SinglePart from './SinglePart';
 
 const Parts = () => {
-    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://radiant-reef-04035.herokuapp.com/parts', {
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('http://localhost:5000/parts', {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

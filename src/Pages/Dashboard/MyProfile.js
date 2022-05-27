@@ -10,8 +10,8 @@ const MyProfile = () => {
     return (
         <div className="flex mt-28">
             <div className="flex flex-col items-center w-1/2">
-                <div class="avatar grid grid-cols-1 gap-5">
-                    <div class="w-24 rounded-full shadow-sm">
+                <div className="avatar grid grid-cols-1 gap-5">
+                    <div className="w-24 rounded-full shadow-sm">
                         <img src={user.photoURL} />
                     </div>
                     <button className="btn btn-xs btn-accent">Change</button>

@@ -29,11 +29,11 @@ const AddProduct = () => {
                     }
 
                    
-                    fetch('https://radiant-reef-04035.herokuapp.com/parts', {
+                    fetch('http://localhost:5000/parts', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
-                            // authorization: `Barer ${localStorage.getItem('accessToken')}`,
+                             authorization: `Barer ${localStorage.getItem('accessToken')}`,
                         },
 
                         body: JSON.stringify(parts)
