@@ -20,6 +20,7 @@ import Blog from './Pages/Blog/Blog';
 import AddReviews from './Pages/Reviews/AddReviews';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import ShowReviews from './Pages/Reviews/ShowReviews';
+import AllUsers from './Pages/Dashboard/AllUsers';
 function App() {
   return (
     <div className="mx-10">
@@ -33,6 +34,7 @@ function App() {
           <Route path="myorders" element={<MyOrders />} />
           <Route path="addreview" element={<AddReviews></AddReviews>}> </Route>
           <Route path="manageorders" element={<RequireAdmin><AllOrders /> </RequireAdmin>} />
+          <Route path="allusers" element={<RequireAdmin><AllUsers /> </RequireAdmin>} />
           <Route path="manageparts/:id" element={<ManageParts />} />
         </Route>
         <Route path="/blog" element={<Blog></Blog>}> </Route>

@@ -21,7 +21,7 @@ const Purchase = () => {
 
 
     const { id } = useParams();
-    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`http://localhost:5000/parts/${id}`, {
+    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -62,7 +62,7 @@ const Purchase = () => {
     const finalSubmit = event => {
 
         if (reqQuantity) {
-            fetch(`http://localhost:5000/parts/${id}`, {
+            fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -83,7 +83,7 @@ const Purchase = () => {
             const img = part.img;
             let newData = { ...datac, status, partsName, img }
 
-            fetch('http://localhost:5000/orders', {
+            fetch('https://sheltered-beach-01598.herokuapp.com/orders', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

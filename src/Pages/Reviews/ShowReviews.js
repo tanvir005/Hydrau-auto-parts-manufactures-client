@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import Review from './Review';
 
 const ShowReviews = () => {
-    const { data: reviews, isLoading, refetch } = useQuery('parts', async () => await fetch(`http://localhost:5000/reviews`, {
+    const { data: reviews, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/reviews`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

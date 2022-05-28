@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAuthState, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
 const MyProfile = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-
     const [isOpenMOdal, setIsOpenMOdal] = useState(true);
 
     const [user] = useAuthState(auth);
@@ -15,6 +15,18 @@ const MyProfile = () => {
 
     const imgStorageKey = '90cfa9a291d9a91d93959e526e9f61f6';
 
+    const email = user.email;
+
+    const { data: userFromDb, isLoading, refetch } = useQuery('userFromDb', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/user/${email}`, {
+        method: 'GET',
+        headers: {
+            authorization: `Barer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()));
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
 
     const onSubmit = async data => {
 
@@ -49,20 +61,36 @@ const MyProfile = () => {
 
     const handleUserInfoUpdate =async event => {
         event.preventDefault();
-        const name = event.target.name.value;
-        const address = event.target.address.value;
-        const phoneNumber = event.target.phoneNumber.value;
-
+        
+        
+        const updatedUser={
+            name :event.target.name.value,
+            address : event.target.address.value,
+            phoneNumber : event.target.phoneNumber.value,
+            linkedin:event.target.linkedin.value,
+            education:event.target.education.value,
+            img: user.photoURL
+        }
        
-       await updateProfile({ phoneNumber:phoneNumber });
-                    toast.success('Usser Uploaded');
-                    reset();
-                    if(updating){
-                        return <Loading></Loading>
-                    }
-                    setIsOpenMOdal(false);
-    }
-    console.log((user));
+        fetch(`https://sheltered-beach-01598.herokuapp.com/updateuser/${email}`,{
+            method: 'PUT',
+            headers:{
+                'content-type': 'application/json',
+                authorization: `Barer ${localStorage.getItem('accessToken')}`,
+            },
+            body:JSON.stringify(updatedUser)
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.modifiedCount > 0){
+              toast.success('Update successfully.');
+              setIsOpenMOdal(false);
+              refetch();
+          }
+          else{
+              toast.error('User Uptodate.')
+          }
+        })}
 
 
     return (
@@ -83,20 +111,30 @@ const MyProfile = () => {
 
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Name </span>
-                        <span className="ml-4">{user.displayName} </span>
+                        <span className="ml-10">{userFromDb.name} </span>
                     </p>
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Email </span>
-                        <span className="ml-4">{user.email} </span>
+                        <span className="ml-10">{userFromDb.email} </span>
+                    </p>
+                    <p className="block text-gray-700 text-sm font-bold my-4">
+                        <span className="mr-4">Education </span>
+                        <span className="ml-2">{userFromDb.education} </span>
+                    </p>
+                    <p className="block text-gray-700 text-sm font-bold my-4">
+                        <span className="mr-4">Linkedin </span>
+                        <span className="ml-5"> <a target="_blank" href={userFromDb.linkedin}> {userFromDb.name}</a> </span>
                     </p>
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Phone </span>
-                        <span className="ml-4">{user.phoneNumber} </span>
+                        <span className="ml-8">{userFromDb.phoneNumber} </span>
                     </p>
+
                     <p className="block text-gray-700 text-sm font-bold my-4">
                         <span className="mr-4">Address </span>
-                        <span className="ml-4">{user.address} </span>
+                        <span className="ml-4">{userFromDb.address} </span>
                     </p>
+                   
 
                 </div>
                 <div className="grid grid-cols-1 justify-items-center">
@@ -170,25 +208,42 @@ const MyProfile = () => {
                                         className="input input-bordered w-full max-w-xs"
                                         readOnly
                                     />
+                                    <label className="label">
+                                        <span className="label-text">Education</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full max-w-xs"
+                                        required
+                                        name='education'
+                                    />
+                                     <label className="label">
+                                        <span className="label-text">Phone Number</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className="input input-bordered w-full max-w-xs"
+                                        required
+                                        name='phoneNumber'
+                                    />
+                                    <label className="label">
+                                        <span className="label-text">Linkedin</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full max-w-xs"
+                                        required
+                                        name='linkedin'
+                                    />
 
                                     <label className="label">
                                         <span className="label-text">Address</span>
                                     </label>
                                     <input
                                         type="text"
-                                        className="input input-bordered w-full max-w-xs"
+                                        className="input input-bordered w-full max-w-xs  mb-5"
                                         required
                                         name='address'
-                                    />
-
-                                    <label className="label">
-                                        <span className="label-text">Phone Number</span>
-                                    </label>
-                                    <input
-                                        type="number"
-                                        className="input input-bordered w-full max-w-xs mb-5"
-                                        required
-                                        name='phoneNumber'
                                     />
 
                                     <input className="btn btn-xs btn-accent w-28 grid justify-items-end" value='Update' type='submit' />

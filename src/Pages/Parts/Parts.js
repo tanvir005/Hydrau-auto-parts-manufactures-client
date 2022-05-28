@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import SinglePart from './SinglePart';
 
 const Parts = () => {
-    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('http://localhost:5000/parts', {
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://sheltered-beach-01598.herokuapp.com/parts', {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

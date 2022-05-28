@@ -25,7 +25,7 @@ const ManageParts = () => {
 
     <Loading></Loading>
 
-    const { data: part, isLoading, refetch } = useQuery('part', async () => await fetch(`http://localhost:5000/parts/${id}`, {
+    const { data: part, isLoading, refetch } = useQuery('part', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -66,7 +66,7 @@ const ManageParts = () => {
     }
     const finalSubmit = event => {
 
-        // fetch(`http://localhost:5000/parts/${id}`, {
+        // fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
         //     method: 'PUT',
         //     headers: {
         //         'content-type': 'application/json'

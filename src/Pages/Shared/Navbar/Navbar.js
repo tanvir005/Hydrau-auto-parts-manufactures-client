@@ -31,7 +31,7 @@ const Navbar = () => {
         }
         <li><Link to="/">Contact Us</Link></li>
         <li>{user ? <div>
-            <button className="btn btn-ghost" onClick={profile} >{user.displayName.split(' ')[user.displayName.split(" ").length-1]}</button>
+            <button className="btn btn-ghost" onClick={profile} >{user?.displayName.split(' ')[user.displayName.split(" ").length-1] || user?.displayName}</button>
             <button className="btn btn-ghost" onClick={logout} >Sign Out</button></div>
             :
             <Link to="/login">Login</Link>}</li>

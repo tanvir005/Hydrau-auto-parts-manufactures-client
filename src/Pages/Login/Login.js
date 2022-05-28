@@ -109,7 +109,7 @@ const Login = () => {
                     </form>
                     {signInError}
 
-                    <p><small>New to Doctors Portal <Link className='text-primary hover:text-blue-800 hover:underline' to="/signup">Create New Account</Link></small></p>
+                    <p><small>New to our site <Link className='text-primary hover:text-blue-800 hover:underline' to="/signup">Create New Account</Link></small></p>
                     <div className="divider">OR</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline">Continue with Google</button>
                 </div>

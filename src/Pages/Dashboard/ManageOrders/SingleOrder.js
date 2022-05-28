@@ -11,7 +11,7 @@ const SingleOrder = ({ order, refetch }) => {
 
 
         const newStatus = { status: 'Shipped' }
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://sheltered-beach-01598.herokuapp.com/orders/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
