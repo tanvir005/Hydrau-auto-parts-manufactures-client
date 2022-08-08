@@ -21,7 +21,7 @@ const UpdatePartsModal = ({ updateModal, setUpdateModal }) => {
       
 
         const reqQuantity = data.target.updateQuantity.value;
-         const newdata = {
+        const newdata = {
              quantity: reqQuantity
          }
         if (reqQuantity) {
@@ -36,7 +36,7 @@ const UpdatePartsModal = ({ updateModal, setUpdateModal }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data?.modifiedCount) {
-                        toast.success("Order placed successfully. Please pay to confirm");
+                        toast.success("Order Updated successfully. Please pay to confirm");
                          navigate('/dashboard/myorders')
                     }
                 })

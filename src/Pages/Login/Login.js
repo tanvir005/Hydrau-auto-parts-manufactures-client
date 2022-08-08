@@ -82,7 +82,7 @@ const Login = () => {
                         </div>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text">Password</span>
                             </label>
                             <input
                                 type="password"

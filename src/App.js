@@ -35,10 +35,9 @@ function App() {
           <Route path="addproduct" element={<RequireAdmin><AddProduct /></RequireAdmin>} />
           <Route path="manageorders" element={<RequireAdmin><AllOrders /> </RequireAdmin>} />
           <Route path="allusers" element={<RequireAdmin><AllUsers /> </RequireAdmin>} />
-          <Route path="manageparts" element={<ManageParts />} />
+          <Route path="manageparts" element={<RequireAdmin><ManageParts /></RequireAdmin>} />
           <Route path="myorders" element={<MyOrders />} />
-          <Route path="addreview" element={<AddReviews></AddReviews>}> </Route>
-          
+          <Route path="addreview" element={<AddReviews></AddReviews>}> </Route>         
         </Route>
         <Route path="/blog" element={<Blog></Blog>}> </Route>
         <Route path="/portfolio" element={<Portfolio/>}> </Route>
