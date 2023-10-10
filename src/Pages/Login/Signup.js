@@ -51,7 +51,7 @@ const Signup = () => {
             name :data.name
         }
         
-        fetch(`https://sheltered-beach-01598.herokuapp.com/updateuser/${data.email}`,{
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/updateuser/${data.email}`,{
             method: 'PUT',
             headers:{
                 'content-type': 'application/json',

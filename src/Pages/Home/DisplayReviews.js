@@ -4,7 +4,7 @@ import Loading from '../Shared/Loading';
 import ReviewCarausol from './ReviewCarausol';
 
 const DisplayReviews = () => {
-    const { data: reviews, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/reviews`, {
+    const { data: reviews, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://hydrau-auto-parts-manufactures.vercel.app/reviews`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

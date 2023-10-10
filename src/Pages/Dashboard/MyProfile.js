@@ -17,7 +17,7 @@ const MyProfile = () => {
 
     const email = user.email;
 
-    const { data: userFromDb, isLoading, refetch } = useQuery('userFromDb', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/user/${email}`, {
+    const { data: userFromDb, isLoading, refetch } = useQuery('userFromDb', async () => await fetch(`https://hydrau-auto-parts-manufactures.vercel.app/user/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -72,7 +72,7 @@ const MyProfile = () => {
             img: user.photoURL
         }
        
-        fetch(`https://sheltered-beach-01598.herokuapp.com/updateuser/${email}`,{
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/updateuser/${email}`,{
             method: 'PUT',
             headers:{
                 'content-type': 'application/json',

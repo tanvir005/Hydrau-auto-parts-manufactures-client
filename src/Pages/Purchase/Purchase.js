@@ -21,7 +21,7 @@ const Purchase = () => {
 
 
     const { id } = useParams();
-    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
+    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://hydrau-auto-parts-manufactures.vercel.app/parts/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -62,7 +62,7 @@ const Purchase = () => {
     const finalSubmit = event => {
 
         if (reqQuantity) {
-            fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
+            fetch(`https://hydrau-auto-parts-manufactures.vercel.app/parts/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
@@ -83,7 +83,7 @@ const Purchase = () => {
             const img = part.img;
             let newData = { ...datac, status, partsName, img }
 
-            fetch('https://sheltered-beach-01598.herokuapp.com/orders', {
+            fetch('https://hydrau-auto-parts-manufactures.vercel.app/orders', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',

@@ -7,7 +7,7 @@ const AllOrders = () => {
 
    
 
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://sheltered-beach-01598.herokuapp.com/orders`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://hydrau-auto-parts-manufactures.vercel.app/orders`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

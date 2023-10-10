@@ -5,7 +5,7 @@ import Loading from '../Shared/Loading';
 
 const AllUsers = () => {
     const [isModalOpen, setIsModalOpen] = useState(null);
-    const { data: users, isLoading, refetch } = useQuery('users', async () => await fetch('https://sheltered-beach-01598.herokuapp.com/user', {
+    const { data: users, isLoading, refetch } = useQuery('users', async () => await fetch('https://hydrau-auto-parts-manufactures.vercel.app/user', {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -15,7 +15,7 @@ const AllUsers = () => {
         return <Loading></Loading>
     }
     const makeAdmin = email => {
-        fetch(`https://sheltered-beach-01598.herokuapp.com/user/admin/${email}`, {
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -44,7 +44,7 @@ const AllUsers = () => {
     const handleDelete = () => {
 
         const Remail = isModalOpen;
-        fetch(`https://sheltered-beach-01598.herokuapp.com/user/${Remail}`, {
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/user/${Remail}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

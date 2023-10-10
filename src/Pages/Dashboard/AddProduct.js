@@ -30,7 +30,7 @@ const AddProduct = () => {
                     }
 
                    
-                    fetch('https://sheltered-beach-01598.herokuapp.com/parts', {
+                    fetch('https://hydrau-auto-parts-manufactures.vercel.app/parts', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

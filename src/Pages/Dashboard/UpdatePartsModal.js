@@ -10,7 +10,7 @@ const UpdatePartsModal = ({ updateModal, setUpdateModal }) => {
     const navigate = useNavigate();
 
 
-    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://sheltered-beach-01598.herokuapp.com/parts/${id}`, {
+    const { data: part, isLoading, refetch } = useQuery('part', () => fetch(`https://hydrau-auto-parts-manufactures.vercel.app/parts/${id}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -25,7 +25,7 @@ const UpdatePartsModal = ({ updateModal, setUpdateModal }) => {
              quantity: reqQuantity
          }
         if (reqQuantity) {
-            fetch(`https://sheltered-beach-01598.herokuapp.com/partsupdate/${id}`, {
+            fetch(`https://hydrau-auto-parts-manufactures.vercel.app/partsupdate/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',

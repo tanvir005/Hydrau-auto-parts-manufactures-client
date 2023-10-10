@@ -12,7 +12,7 @@ const SingleOrder = ({ order, refetch }) => {
     const handlePanding = (id) => {
 
         const newStatus = { status: 'Shipped' }
-        fetch(`https://sheltered-beach-01598.herokuapp.com/orders/${id}`, {
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/orders/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -35,7 +35,7 @@ const SingleOrder = ({ order, refetch }) => {
 
         const id = deletingOrder;
 
-        fetch(`https://sheltered-beach-01598.herokuapp.com/order/${id}`, {
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/order/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

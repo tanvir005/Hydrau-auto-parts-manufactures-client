@@ -12,7 +12,7 @@ const AddReviews = () => {
     const { register, formState: { errors }, reset, handleSubmit } = useForm();
     const email = user.email;
     
-    const { data: orders, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://sheltered-beach-01598.herokuapp.com/orders/${email}`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', async () => await fetch(`https://hydrau-auto-parts-manufactures.vercel.app/orders/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -35,7 +35,7 @@ const AddReviews = () => {
            
         }
         // send to your database 
-        fetch('https://sheltered-beach-01598.herokuapp.com/reviews', {
+        fetch('https://hydrau-auto-parts-manufactures.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

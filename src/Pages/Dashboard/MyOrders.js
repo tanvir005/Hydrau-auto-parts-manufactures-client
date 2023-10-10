@@ -11,7 +11,7 @@ const MyOrders = () => {
 
     const email = user.email;
 
-    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://sheltered-beach-01598.herokuapp.com/orders/${email}`, {
+    const { data: orders, isLoading, refetch } = useQuery('parts', () => fetch(`https://hydrau-auto-parts-manufactures.vercel.app/orders/${email}`, {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`
@@ -33,7 +33,7 @@ const MyOrders = () => {
 
         const id = deletingParts;
 
-        fetch(`https://sheltered-beach-01598.herokuapp.com/order/${id}`, {
+        fetch(`https://hydrau-auto-parts-manufactures.vercel.app/order/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -85,7 +85,7 @@ const MyOrders = () => {
                             orders.map(order =>
                                 <tr key={order._id} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                        <img className="w-10" src={order.img} alt="product image" />
+                                        <img className="w-10" src={order.img} alt="product"/>
                                     </th>
                                     <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                         {order.partsName}

@@ -5,7 +5,7 @@ import SinglePart from './SinglePart';
 
 
 const AllParts = () => {
-    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://sheltered-beach-01598.herokuapp.com/parts', {
+    const { data: parts, isLoading, refetch } = useQuery('parts', () => fetch('https://hydrau-auto-parts-manufactures.vercel.app/parts', {
         method: 'GET',
         headers: {
             authorization: `Barer ${localStorage.getItem('accessToken')}`

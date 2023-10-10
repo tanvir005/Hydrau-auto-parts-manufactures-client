@@ -15,38 +15,40 @@ import MyOrders from './Pages/Dashboard/MyOrders';
 import FourOFour from './Pages/Shared/FourOFour';
 import AllOrders from './Pages/Dashboard/ManageOrders/AllOrders';
 import ManageParts from './Pages/Dashboard/ManageOrders/ManageParts';
-import Blog from './Pages/Blog/Blog';
 import AddReviews from './Pages/Reviews/AddReviews';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import ShowReviews from './Pages/Reviews/ShowReviews';
 import AllUsers from './Pages/Dashboard/AllUsers';
-import Portfolio from './Pages/Portfolio/Portfolio';
 import AllParts from './Pages/Parts/AllParts';
+import { useState } from 'react';
 function App() {
+  const [isOpenMOdal, setIsModalOpen] = useState(true);
   return (
     <div>
-      <Navbar  className="mx-10"></Navbar>
+     
+      <Navbar className="mx-10"></Navbar>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/parts" element={<AllParts />} />
-        <Route path="/purchase/:id" element={<RequireAuth><Purchase></Purchase></RequireAuth>}></Route>
-        <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
-          <Route index element={<MyProfile></MyProfile>} />
-          <Route path="addproduct" element={<RequireAdmin><AddProduct /></RequireAdmin>} />
-          <Route path="manageorders" element={<RequireAdmin><AllOrders /> </RequireAdmin>} />
-          <Route path="allusers" element={<RequireAdmin><AllUsers /> </RequireAdmin>} />
-          <Route path="manageparts" element={<RequireAdmin><ManageParts /></RequireAdmin>} />
-          <Route path="myorders" element={<MyOrders />} />
-          <Route path="addreview" element={<AddReviews></AddReviews>}> </Route>         
-        </Route>
-        <Route path="/blog" element={<Blog></Blog>}> </Route>
-        <Route path="/portfolio" element={<Portfolio/>}> </Route>
-        <Route path="/reviews" element={<ShowReviews></ShowReviews>}> </Route>
-        <Route path="/login" element={<Login></Login>}> </Route>
-        <Route path="/signup" element={<Signup></Signup>}> </Route>
-        <Route path="*" element={<FourOFour />}> </Route>
-      </Routes>
-      <ToastContainer />
+      <Route path="/" element={<Home isOpenMOdal={isOpenMOdal} setIsModalOpen={setIsModalOpen}></Home>}></Route>
+      <Route path="/parts" element={<AllParts />} />
+      <Route path="/purchase/:id" element={<RequireAuth><Purchase></Purchase></RequireAuth>}></Route>
+      <Route path="/dashboard" element={<RequireAuth><Dashboard></Dashboard></RequireAuth>}>
+        <Route index element={<MyProfile></MyProfile>} />
+        <Route path="addproduct" element={<RequireAdmin><AddProduct /></RequireAdmin>} />
+        <Route path="manageorders" element={<RequireAdmin><AllOrders /> </RequireAdmin>} />
+        <Route path="allusers" element={<RequireAdmin><AllUsers /> </RequireAdmin>} />
+        <Route path="manageparts" element={<RequireAdmin><ManageParts /></RequireAdmin>} />
+        <Route path="myorders" element={<MyOrders />} />
+        <Route path="addreview" element={<AddReviews></AddReviews>}> </Route>
+      </Route>
+      {/* <Route path="/blog" element={<Blog></Blog>}> </Route>
+      <Route path="/portfolio" element={<Portfolio/>}> </Route> */}
+      <Route path="/reviews" element={<ShowReviews></ShowReviews>}> </Route>
+      <Route path="/login" element={<Login></Login>}> </Route>
+      <Route path="/signup" element={<Signup></Signup>}> </Route>
+      <Route path="*" element={<FourOFour />}> </Route>
+    </Routes>
+    <ToastContainer />
+
     </div>
   );
 }
